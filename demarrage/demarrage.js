@@ -61,8 +61,7 @@ catch (Exception) {
 filePathcontent2 = path.resolve('%CD%', './client/custom.ini').replace('\\%CD%', '');
 content = fs.readFileSync(filePathcontent2,'utf8');
 console.log(content)
-console.log('pensez à modifier [debug] enable=true par [debug] enable=false dans client custom.ini')
-    console.log('!!!!!!!!!!!!!!!!!!!! PUIS RE DEMARRAGE NECESSAIRE MERCI !!!!!!!!!!!!!!!')
+
     
 
 miseà0() 
