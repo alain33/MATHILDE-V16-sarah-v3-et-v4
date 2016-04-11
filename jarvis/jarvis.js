@@ -1,6 +1,5 @@
 exports.init = function(SARAH, SARAH2){
-SARAH.speak('');
- }﻿
+ }
  
 exports.action = function(data, callback, config, SARAH) {
   
