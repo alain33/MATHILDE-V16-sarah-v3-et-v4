@@ -1,44 +1,26 @@
 ///ouvertur url
-var ScribeAskMe;
-var ScribeSpeak;
-var maConfig;
-var SCRIBE;
+var ScribeAskMe; var ScribeSpeak; var maConfig; var SCRIBE;
 
 exports.action = function(data, callback, config,SARAH){
 
-SCRIBE = SARAH.context.scribe;
-  ScribeAskMe = SARAH.ScribeAskMe;
-  ScribeSpeak = SARAH.ScribeSpeak;
-SCRIBE.activePlugin('url');
+SCRIBE = SARAH.context.scribe; ScribeAskMe = SARAH.ScribeAskMe; ScribeSpeak = SARAH.ScribeSpeak; SCRIBE.activePlugin('url');
 urlchercher=data.urlchercher
 
-//////////////////////////////////////////////////
-///////////////////////////////////////////////////
+console.log(urlchercher); request = require('request');cheerio = require('cheerio');
 
-console.log(urlchercher)
-request = require('request');
+      request('https://www.google.fr/search?q='+urlchercher+'&ie=utf-8&oe=utf-8&gws_rd=cr&ei', function (error, response, html) {
+             var $ = cheerio.load(html);
+             var url = $('.g .s cite').first().text().trim();
+                // $('cite').each(function(i, element){
+                  //  var a = $(this);
+   url=url.replace(new RegExp("\\b" + "- " + "\\b","gi"),"").toLowerCase(); 
 
-
-
-request('https://www.google.fr/search?q='+urlchercher+'&ie=utf-8&oe=utf-8&gws_rd=cr&ei', function (error, response, html) {
-   
-    var $ = cheerio.load(html);
-   
-$('cite').each(function(i, element){
-      var a = $(this);
-    if(i==0){chrome(a.text())}
-return false
-         });//fin each
+                    //    if(i==0){chrome(a.text())}//on prends la premiere occurence (url) et on ouvre
+chrome(url)
+                    return false
+                //}
+                //);//fin each
 });//fin request
-
-
-
-
-
-
-
-
-
 
 
 /////////////////////////////////////
@@ -85,15 +67,12 @@ else {console.log(".fr");url=' '+url+'.fr/';chrome(url)}
 })//fin request 1	
 	}
 
-function chrome(url){console.log('on envoie'+url);//url=' https://www.cic.fr/'
+function chrome(url){console.log('on envoie'+url);
   var exec = require('child_process').exec;
-  //var process = '"C:\\Program Files\\Mozilla Firefox\\firefox.exe"'+' https://www.cic.fr/'
   var process = '"C:\\Program Files\\Mozilla Firefox\\firefox.exe" '+url
   console.log(process)
   var child = exec(process);
-return
+  return
 }//fin fnct chrome
 
-	//url(urlchercher)
-/// url ou site
 } 
